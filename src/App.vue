@@ -3,14 +3,19 @@
     <!-- v-on:termChange -->
     <SearchBar @termChange="onTermChange" />
 
-    <!-- v-bind:termChange -->
-    <VideoList :videos="videos" @onVideoSelect="onVideoSelect" />
+    <div class="row">
+      <VideoDetails :video="selectedVideo" />
+
+      <!-- v-bind:termChange -->
+      <VideoList :videos="videos" @onVideoSelect="onVideoSelect" />
+    </div>
   </div>
 </template>
 
 <script>
 import SearchBar from './components/SearchBar.vue';
 import VideoList from './components/VideoList.vue';
+import VideoDetails from './components/VideoDetails.vue';
 import axios from 'axios';
 
 export default {
@@ -18,10 +23,12 @@ export default {
   components: {
     SearchBar,
     VideoList,
+    VideoDetails,
   },
   data() {
     return {
       videos: [],
+      selectedVideo: {},
     };
   },
   methods: {
@@ -40,7 +47,7 @@ export default {
         });
     },
     onVideoSelect(video) {
-      console.log(video);
+      this.selectedVideo = video;
     },
   },
 };
